@@ -1,11 +1,10 @@
-import React from "react";
 import { MdDateRange } from "react-icons/md";
 import { AiOutlineExclamationCircle } from "react-icons/ai";
 import { LuBell } from "react-icons/lu";
 import { IoGrid } from "react-icons/io5";
 import SAMSLogo from '../../../assets/images/SAMS_360_logo.png';
 
-export default function TopNav(): JSX.Element {
+export default function TopNav() {
   return (
     <header className="w-full bg-[#F4F6F9] border-b border-gray-200">
       <div className="w-full h-1 bg-[rgb(45,42,84)]" />

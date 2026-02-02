@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import { useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../../Shared/Navbar/TopNav';
 import BottomNav from '../../Shared/Navbar/BottomNav';
@@ -7,20 +7,7 @@ import welcomeImg from '../../../../src/assets/images/configImages/welcomeConfig
 import { IoIosArrowBack } from 'react-icons/io';
 import { MdArrowForwardIos } from 'react-icons/md';
 
-function Stepper({ currentStep }: { currentStep: number }) {
-  return (
-    <div className="max-w-[1100px] mx-auto px-6 py-4">
-      <div className="flex items-center gap-3">
-        <div className="p-2 rounded-md bg-white border border-gray-200"> 
-          <svg className="w-4 h-4 text-indigo-600" fill="currentColor" viewBox="0 0 20 20"><path d="M7 7l5 3-5 3V7z"/></svg>
-        </div>
-        <h2 className="text-sm text-gray-600"><span className="text-indigo-600 font-semibold">Configure</span> / <span className="font-semibold text-gray-900">Welcome</span></h2>
-      </div>
-    </div>
-  );
-}
-
-export default function Welcome(): JSX.Element {
+export default function Welcome() {
   const navigate = useNavigate();
   const [agreed, setAgreed] = useState(false);
 

@@ -1,7 +1,6 @@
-import React from "react";
 import VarsityLogo from '../../../assets/images/university_of_sheffield.png';
 
-export default function BottomNav(): JSX.Element {
+export default function BottomNav() {
 	return (
 		<div className="w-full bg-white border-b border-gray-200">
 			<div className="max-w-full mx-auto px-4 sm:px-6 lg:px-8 h-16 flex items-center justify-between">
