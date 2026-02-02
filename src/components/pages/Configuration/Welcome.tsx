@@ -4,7 +4,7 @@ import TopNav from '../../Shared/Navbar/TopNav';
 import BottomNav from '../../Shared/Navbar/BottomNav';
 import SaveButton from '../../Shared/Footer/SaveButton';
 import welcomeImg from '../../../../src/assets/images/configImages/welcomeConfigImage.png';
-import { IoIosArrowBack } from 'react-icons/io';
+import { MdArrowBackIosNew } from "react-icons/md";
 import { MdArrowForwardIos } from 'react-icons/md';
 
 export default function Welcome() {
@@ -19,22 +19,26 @@ export default function Welcome() {
     <div className="min-h-screen bg-[#f8fafc] text-[#24304a]">
       <TopNav />
       <BottomNav />
-      <div className="max-w-[1400px] mx-auto px-6 py-8">
+      <div className="max-w-full mx-auto py-2">
         <div className="relative bg-white rounded-lg shadow-lg p-25 flex gap-12 items-center">
           <div className="flex-1">
             <div className="mb-6">
               <div className="flex items-center gap-2">
                 <button
                   onClick={() => navigate(-1)}
-                  className="p-3 rounded-md bg-white border border-gray-200 text-gray-600 hover:bg-gray-50"
+                  className="p-3 rounded-md bg-white font-bold border border-gray-200 text-gray-600 hover:bg-gray-50"
                 >
-                  <IoIosArrowBack className="w-3 h-3" />
+                  <MdArrowBackIosNew className="w-4 h-4" />
                 </button>
-                <div className="p-3 rounded-md bg-[rgb(70,61,149)] text-white">
-                  <MdArrowForwardIos className="w-3 h-3" />
+                <div className="p-3 rounded-md bg-[rgb(70,61,149)] font-bold text-white">
+                  <MdArrowForwardIos className="w-4 h-4" />
                 </div>
-                <h1 className="text-3xl font-extrabold ml-3">Welcome to <span className="text-[#334155]">SAMS</span> <span className="text-[#F29100]">Planner</span></h1>
+                <h2 className="text-lg">
+                <span className="text-[#94A3B8] font-medium">Configure /</span>
+                <span className="font-bold text-[#334155]"> Welcome</span>
+              </h2>  
               </div>
+              <h1 className="text-3xl font-extrabold mt-10">Welcome to <span className="text-[#334155]">SAMS</span> <span className="text-[#F29100]">Planner</span></h1>
             </div>
 
             <div className="mb-6">
@@ -61,7 +65,7 @@ export default function Welcome() {
           <div className="w-1/2 flex items-center justify-center">
             <img src={welcomeImg} alt="illustration" className="max-w-full h-auto" />
           </div>
-          <div className="absolute left-6 right-6 bottom-6">
+          <div className="absolute left-25 right-25 bottom-6">
             <SaveButton fullWidth disabled={!agreed} onClick={handleContinue} />
           </div>
         </div>
