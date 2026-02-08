@@ -12,7 +12,8 @@ export default function Confirmation() {
   const [selection, setSelection] = useState<'yes' | 'no' | null>(null);
 
   const handleSubmit = () => {
-    // handle submit action (e.g., store selection)
+    // navigate to Add User Role step when a selection is made
+    if (selection) navigate('/add-user-role');
   };
 
   return (
