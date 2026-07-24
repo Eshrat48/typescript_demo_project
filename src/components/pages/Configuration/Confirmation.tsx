@@ -28,7 +28,7 @@ export default function Confirmation() {
               <button onClick={() => navigate(-1)} className="p-2 rounded-md bg-[rgb(70,61,149)] text-white">
                 <MdArrowBackIosNew className="w-4 h-4" />
               </button>
-              <button className="p-2 rounded-md bg-[rgb(70,61,149)] text-white">
+              <button onClick={() => navigate('/add-user-role')} className="p-2 rounded-md bg-[rgb(70,61,149)] text-white">
                 <MdArrowForwardIos className="w-4 h-4" />
               </button>
               <h2 className="text-lg">
