@@ -20,7 +20,7 @@ export default function Welcome() {
       <TopNav />
       <BottomNav />
       <div className="max-w-full mx-auto">
-        <div className="relative bg-white p-10 pl-50 pr-50 flex gap-12 items-start">
+        <div className="relative bg-white p-10 pl-50 pr-50 pb-28 flex gap-12 items-start">
           <div className="flex-1">
             <div className="mb-6">
               <div className="flex items-center gap-2">
