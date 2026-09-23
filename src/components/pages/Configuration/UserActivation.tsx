@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useLocation, useNavigate } from 'react-router-dom';
 import TopNav from '../../Shared/Navbar/TopNav';
 import BottomNav from '../../Shared/Navbar/BottomNav';
@@ -6,16 +6,28 @@ import SaveButton from '../../Shared/Footer/SaveButton';
 import { MdArrowBackIosNew, MdArrowForwardIos } from 'react-icons/md';
 import { AiOutlineEye, AiOutlineEyeInvisible } from 'react-icons/ai';
 
+const USER_NAME_STORAGE_KEY = 'sams-copy-selected-user-name';
+
 export default function UserActivation() {
   const navigate = useNavigate();
   const location = useLocation();
   const state = location.state as { userName?: string } | null;
 
-  const [userName, setUserName] = useState(state?.userName ?? '');
+  const [userName, setUserName] = useState(state?.userName ?? (typeof window === 'undefined' ? '' : window.localStorage.getItem(USER_NAME_STORAGE_KEY) ?? ''));
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
   const [showPassword, setShowPassword] = useState(false);
   const [showConfirmPassword, setShowConfirmPassword] = useState(false);
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    if (userName) {
+      window.localStorage.setItem(USER_NAME_STORAGE_KEY, userName);
+    }
+  }, [userName]);
 
   const passwordRules = {
     minLength: password.length >= 8,
@@ -121,19 +133,19 @@ export default function UserActivation() {
                       <div className="mb-2 font-semibold text-[#334155]">Password requirements</div>
                       <ul className="space-y-1">
                         <li className={passwordRules.minLength ? 'text-green-700' : 'text-gray-500'}>
-                          {passwordRules.minLength ? '✓' : '○'} At least 8 characters
+                          {passwordRules.minLength ? '?' : '?'} At least 8 characters
                         </li>
                         <li className={passwordRules.hasUppercase ? 'text-green-700' : 'text-gray-500'}>
-                          {passwordRules.hasUppercase ? '✓' : '○'} One uppercase letter
+                          {passwordRules.hasUppercase ? '?' : '?'} One uppercase letter
                         </li>
                         <li className={passwordRules.hasLowercase ? 'text-green-700' : 'text-gray-500'}>
-                          {passwordRules.hasLowercase ? '✓' : '○'} One lowercase letter
+                          {passwordRules.hasLowercase ? '?' : '?'} One lowercase letter
                         </li>
                         <li className={passwordRules.hasNumber ? 'text-green-700' : 'text-gray-500'}>
-                          {passwordRules.hasNumber ? '✓' : '○'} One number
+                          {passwordRules.hasNumber ? '?' : '?'} One number
                         </li>
                         <li className={passwordRules.hasSpecialChar ? 'text-green-700' : 'text-gray-500'}>
-                          {passwordRules.hasSpecialChar ? '✓' : '○'} One special character
+                          {passwordRules.hasSpecialChar ? '?' : '?'} One special character
                         </li>
                       </ul>
                     </div>

@@ -1,4 +1,4 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import { useNavigate } from 'react-router-dom';
 import TopNav from '../../Shared/Navbar/TopNav';
 import BottomNav from '../../Shared/Navbar/BottomNav';
@@ -14,6 +14,26 @@ type UserProfile = {
   jobTitle: string;
 };
 
+const USERS_STORAGE_KEY = 'sams-copy-add-user-users';
+
+const getStoredUsers = (fallbackUsers: UserProfile[]) => {
+  if (typeof window === 'undefined') {
+    return fallbackUsers;
+  }
+
+  const stored = window.localStorage.getItem(USERS_STORAGE_KEY);
+  if (!stored) {
+    return fallbackUsers;
+  }
+
+  try {
+    const parsed = JSON.parse(stored) as UserProfile[];
+    return Array.isArray(parsed) ? parsed : fallbackUsers;
+  } catch {
+    return fallbackUsers;
+  }
+};
+
 export default function AddUser() {
   const navigate = useNavigate();
   const defaultUsers: UserProfile[] = [
@@ -26,7 +46,7 @@ export default function AddUser() {
     { id: 'rousnay123', name: 'rousnay123', email: 'rousnay123@sams.com', role: 'Admin', jobTitle: 'System Owner' },
   ];
 
-  const [users, setUsers] = useState<UserProfile[]>(defaultUsers);
+  const [users, setUsers] = useState<UserProfile[]>(() => getStoredUsers(defaultUsers));
   const [selectedUserId, setSelectedUserId] = useState('');
   const selectedUser = users.find((user) => user.id === selectedUserId);
 
@@ -34,6 +54,14 @@ export default function AddUser() {
   const [email, setEmail] = useState('');
   const [role, setRole] = useState('');
   const [jobTitle, setJobTitle] = useState('');
+
+  useEffect(() => {
+    if (typeof window === 'undefined') {
+      return;
+    }
+
+    window.localStorage.setItem(USERS_STORAGE_KEY, JSON.stringify(users));
+  }, [users]);
 
   const clearForm = () => {
     setSelectedUserId('');
@@ -84,9 +112,7 @@ export default function AddUser() {
     } else {
       setUsers((currentUsers) =>
         currentUsers.map((user) =>
-          user.id === selectedUserId
-            ? { ...user, name, email, role, jobTitle }
-            : user,
+          user.id === selectedUserId ? { ...user, name, email, role, jobTitle } : user,
         ),
       );
     }
@@ -127,8 +153,6 @@ export default function AddUser() {
         </div>
 
         <div className="bg-white rounded-xl shadow-md p-6 grid grid-cols-12 gap-6 items-start">
-
-          {/* Left list */}
           <div className="col-span-3">
             <div className="bg-white rounded-lg shadow-sm p-4">
               <button onClick={clearForm} className="w-full flex items-center gap-3 justify-center bg-[#463D95] text-white rounded-md py-3 font-semibold">
@@ -151,7 +175,6 @@ export default function AddUser() {
             </div>
           </div>
 
-          {/* Center form */}
           <div className="col-span-5">
             <div className="mb-6">
               <label className="block text-sm font-medium mb-2">User Name</label>
@@ -224,14 +247,12 @@ export default function AddUser() {
             </div>
           </div>
 
-          {/* Right illustration */}
           <div className="col-span-4 self-center flex items-center justify-center">
             <div className="w-full min-h-105 bg-transparent flex items-center justify-center p-0">
               <img src={AddUserImg} alt="illustration" className="max-w-full h-auto bg-transparent scale-125 origin-center" />
             </div>
           </div>
 
-          {/* Bottom full-width Save button */}
           <div className="col-span-12">
             <div className="mt-6">
               <SaveButton fullWidth onClick={handleSave} disabled={!name || !email || !role || !jobTitle}>
@@ -239,7 +260,6 @@ export default function AddUser() {
               </SaveButton>
             </div>
           </div>
-
         </div>
       </div>
     </div>
